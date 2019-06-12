@@ -1,0 +1,23 @@
+version: "3"
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
+  internal_site:
+    image: stefanprodan/podinfo 
+    ports:
+      - "9898:9898"
+  kraken_designer:
+    image: devopsfaith/krakendesigner:latest
+    ports:
+      - "8787:80"
+  krakend_service:
+    image: devopsfaith/krakend:0.9.0
+    volumes:
+      - ./krakend:/etc/krakend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - internal_site
+      - jaeger

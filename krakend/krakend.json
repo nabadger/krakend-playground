@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "name": "KrakenD ",
+  "port": 8080,
+  "cache_ttl": "3600s",
+  "timeout": "3s",
+  "endpoints": [
+    {
+      "endpoint": "/private",
+       "extra_config": {
+        "github.com/devopsfaith/krakend-jose/validator": {
+            "alg": "RS256",
+            "audience": ["http://api.example.com"],
+            "roles_key": "mail",
+            "roles": ["example-user@example.com"],
+            "jwk-url": "https://albert-test.auth0.com/.well-known/jwks.json"
+        }
+    },
+      "backend": [
+        {
+          "host": [
+            "http://internal_site:9898"
+          ],
+          "encoding": "string"
+        }
+      ]
+    }
+  ]
+}
